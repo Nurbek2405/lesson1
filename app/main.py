@@ -149,11 +149,3 @@ remove(model=User, id=7)
 #
 # function(number=3, text="swqfqwf", age=13, last_name="python", n=253, u=True)
 # #function(3, "swqfqwf", 13,"python", 253, True)
-
-
-
-
-
-
-
-
