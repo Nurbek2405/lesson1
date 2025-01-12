@@ -5,9 +5,7 @@ from sqlalchemy.orm import (
     mapped_column,
     sessionmaker,
 )
-
-class Base(DeclarativeBase): #Позволяет создавать классы, которые будут отображаться на таблицы в базе данных.
-    pass                     # Все модели (классы) должны наследоваться от этого класса.
+from fastapi import FastAPI
 
 class User(Base):  # Model -> Table
     __tablename__ = "users"    #Имя таблицы.
@@ -28,16 +26,16 @@ SessionLocal = sessionmaker(bind=engine)    #Создает фабрику дл�
 session = SessionLocal                      #Сессии используются для выполнения запросов к базе данных.
 
 # Создание всех таблиц ( если будет писать not exist, то что не создана)
-# Base.metadata.create_all(bind=engine) #Создает таблицы в базе данных на основе всех определенных моделей (User в данном случае).
+#Base.metadata.create_all(bind=engine) #Создает таблицы в базе данных на основе всех определенных моделей (User в данном случае).
                                         #Использует метаданные (Base.metadata) для создания SQL-запросов CREATE TABLE.
 # INSERT Вставка данных
 try:
     with SessionLocal() as session:  # INSERT INTO users (name, password, email, age) VALUES (...);
         query = insert(User).values( #Создается запрос INSERT для вставки данных в таблицу users.
-            name="User6",
-            password="user6",
-            email="user6@gmail.com",
-            age=26,
+            name="User2",
+            password="user2",
+            email="user2@gmail.com",
+            age=22,
         )
         result = session.execute(query)  # Исправлено Исполняет SQL-запрос.
         session.commit()
@@ -93,6 +91,34 @@ except Exception as e:
 finally:
     session.close()
 
+app = FastAPI()
+
+def get(model, **kwargs):
+    with SessionLocal() as session:
+        query = select(model).filter_by(**kwargs) # filter_by(id=6)
+
+        result = session.execute(query)
+        session.commit()
+
+        return result.scalar_one_or_none()
+
+def get_all(model):
+    with SessionLocal() as session:
+        query = select(User.id)
+
+        result = session.execute(query)
+        session.commit()
+
+        return result.fetchall()
+
+@app.get("/one")
+def get_user():
+    return get(model=User, id=6)
+
+@app.get("/all")
+def get_user():
+    return get_all(model=User)
+
 
 # SQL Query
 # SELECT * FROM user;
@@ -103,27 +129,18 @@ finally:
 # *args, **kwargs
 # filter_by
 # where
-def get(model, **kwargs):
-    with SessionLocal() as session:
-        query = select(model).filter_by(**kwargs)
-        #query = select(model).where(model.id == id)
-        result = session.execute(query)
-        session.commit()
-        for user in result.scalars():
-            print(user.name)
+# def remove(model, **kwargs):
+#     with SessionLocal() as session:
+#         query = delete(User).filter_by(**kwargs)
+#         result = session.execute(query)
+#     # query = delete(User).where(User.id == 2)
+#         session.commit()
 
-def remove(model, **kwargs):
-    with SessionLocal() as session:
-        query = delete(User).filter_by(**kwargs)
-        result = session.execute(query)
-    # query = delete(User).where(User.id == 2)
-        session.commit()
-
-def alter():
-    pass
+# def alter():
+#     pass
 
 #users = get(model=User, id=7)
-remove(model=User, id=7)
+# remove(model=User, id=7)
 
 
 

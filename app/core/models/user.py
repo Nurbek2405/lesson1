@@ -1,3 +1,6 @@
+from sqlalchemy.orm import Mapped, mapped_column
+from app.core.models.base import Base
+
 class User(Base):  # Model -> Table
     __tablename__ = "users"    #Имя таблицы.
 
