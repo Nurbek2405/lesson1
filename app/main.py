@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from app.core.models.base import Base
 from app.core.database.helper import engine
-from api.user import router as user_router
+from app.api.user import router as user_router
 
 
 @asynccontextmanager

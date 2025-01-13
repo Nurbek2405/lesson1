@@ -11,7 +11,8 @@ from app.core.models.user import User
 from sqlalchemy.orm import Session
 
 from app.core.schemas.user import UserCreate, UserUpdate, UserRead
-router = APIRouter(prefix="/api/user", tags=["Группа какая та, типо пользователь"]) # с тегами будет разделение, лучше
+router = APIRouter(prefix="/api/user", tags=["Группа какая та, типо пользователи, уровень доступа FRONTEND"]) # с тегами будет разделение, лучше
+
 
 @router.get("/{id}", response_model=UserRead)
 def get_by_id(id: int, session: Annotated[Session, Depends(get_session)]):
@@ -21,14 +22,12 @@ def get_by_id(id: int, session: Annotated[Session, Depends(get_session)]):
 
     return result.scalar_one_or_none()
 
+
 @router.post("/")
 def create(data: UserCreate, session: Annotated[Session, Depends(get_session)]):
-    query = insert(User).values( #Создается запрос INSERT для вставки данных в таблицу users.
-        name="User4",
-        password="user4",
-        email="user4@gmail.com",
-        age=24,
-    )
+    data_dict: dict = data.model_dump()
+    query = insert(User).values(**data_dict)
+
     session.execute(query)  # Исправлено Исполняет SQL-запрос.
     session.commit()
     return "User has been created!"
