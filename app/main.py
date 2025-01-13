@@ -6,6 +6,7 @@ from sqlalchemy.orm import (
     sessionmaker,
 )
 from fastapi import FastAPI
+from app.core.models.base import Base
 
 class User(Base):  # Model -> Table
     __tablename__ = "users"    #Имя таблицы.
@@ -32,10 +33,10 @@ session = SessionLocal                      #Сессии используютс
 try:
     with SessionLocal() as session:  # INSERT INTO users (name, password, email, age) VALUES (...);
         query = insert(User).values( #Создается запрос INSERT для вставки данных в таблицу users.
-            name="User2",
-            password="user2",
-            email="user2@gmail.com",
-            age=22,
+            name="User3",
+            password="user3",
+            email="user3@gmail.com",
+            age=23,
         )
         result = session.execute(query)  # Исправлено Исполняет SQL-запрос.
         session.commit()
