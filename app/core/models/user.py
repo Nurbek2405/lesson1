@@ -9,4 +9,5 @@ class User(Base):  # Model -> Table
     password: Mapped[str] = mapped_column(nullable=False)
     email: Mapped[str] = mapped_column(unique=True, nullable=False) #Должно быть уникальным (опция unique=True).
 
-    age: Mapped[int]
+    age: Mapped[int] # Можно не указывать
+
