@@ -1,4 +1,5 @@
 from typing import Optional
+
 from pydantic import BaseModel, EmailStr
 # Схема Pydantic
 # create, update, read (get)
@@ -16,6 +17,7 @@ class UserRead(BaseModel):
     password: str
     email: EmailStr # user@gmail.com
     age: Optional[int] = None # Опциональные это не обязательно
+
 
 class UserUpdate(BaseModel):
     name: Optional[str] = None # обновляется одно только меняется
