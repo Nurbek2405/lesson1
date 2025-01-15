@@ -11,7 +11,7 @@ from app.core.models.user import User
 from sqlalchemy.orm import Session
 
 from app.core.schemas.user import UserCreate, UserUpdate, UserRead
-router = APIRouter(prefix="/api/user", tags=["Группа, USERS access 22222"]) # с тегами будет разделение, лучше
+router = APIRouter(prefix="/api/user", tags=["Группа, USERS access 2"]) # с тегами будет разделение, лучше
 
 @router.get("/", response_model=list[UserRead])
 def get_all(session: Annotated[Session, Depends(get_session)]):

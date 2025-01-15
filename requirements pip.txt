@@ -5,6 +5,9 @@ uvicorn app.main:a   создает сервер
 uvicorn app.main:app --reload   флажок для пересоздание сервера
 
 pip list (список бибилиотек)
+pip install pip-review (Установите и используйте утилиту pip-review для управления обновлениями:)
+pip-review вывод устаревшиз библиотек
+pip-review --auto установка обновлений
 
 
 python -m venv venv (Только для виртуальной среды)
