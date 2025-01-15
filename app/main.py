@@ -1,8 +1,13 @@
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
+
 from app.core.models.base import Base
+from app.core.models.user import User
+from app.core.models.role import Role
 from app.core.database.helper import engine
-from app.api.user import router as user_router
+
+from app.api.api_v1.user import router as user_router
 
 
 @asynccontextmanager
@@ -13,7 +18,7 @@ async def lifespan(app: FastAPI):
     # Создает таблицы в базе данных на основе всех определенных моделей (User в данном случае).
     # Использует метаданные (Base.metadata) для создания SQL-запросов CREATE TABLE.
     #Base.metadata.drop_all(bind=engine) # удалить все таблицы
-    #Base.metadata.create_all(bind=engine) # создаем все таблицы, всегда держалась чистой
+    Base.metadata.create_all(bind=engine) # создаем все таблицы, всегда держалась чистой
     print('Starting.... lifespan')
     yield
     print('Shutting down.... lifespan')

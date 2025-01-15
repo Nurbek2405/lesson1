@@ -1,0 +1,18 @@
+.env file
+
+Endpoint -> Service -> Repository
+
+
+Repo -> DataBase
+Service -> Buisness Logic
+Endpoint -> Flow
+
+
+Depends
+
+alembic
+
+[We can Ignore]
+BaseRepository
+BaseService
+Mixins
