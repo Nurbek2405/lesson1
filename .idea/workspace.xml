@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="eb8b9295-bbcc-4940-8b4b-dcbb4b87c471" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/core/schemas/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/core/schemas/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Как конировать проект.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Как конировать проект.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +52,7 @@
     "Python.user.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/Nurba/PycharmProjects/lesson1",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
