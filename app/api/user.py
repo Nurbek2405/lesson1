@@ -11,7 +11,7 @@ from app.core.models.user import User
 from sqlalchemy.orm import Session
 
 from app.core.schemas.user import UserCreate, UserUpdate, UserRead
-router = APIRouter(prefix="/api/user", tags=["Группа, USERS access 22"]) # с тегами будет разделение, лучше
+router = APIRouter(prefix="/api/user", tags=["Группа, USERS access 22222"]) # с тегами будет разделение, лучше
 
 @router.get("/", response_model=list[UserRead])
 def get_all(session: Annotated[Session, Depends(get_session)]):
@@ -64,6 +64,19 @@ def remove(
     session.execute(query)
     session.commit()
     return f"User: {id} is has been removed!"
+
+# @router.delete("/")
+# def remove(
+#     ids: list[int],
+#     session: Annotated[Session, Depends(get_session)],
+# ):
+#     query = delete(User).filter_by(id = id)
+#
+#     session.execute(query)
+#     session.commit()
+#     return f"User: {id} is has been removed!"
+
+
 
 
 # def get(model, **kwargs):
