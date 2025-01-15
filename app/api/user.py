@@ -11,27 +11,23 @@ from app.core.models.user import User
 from sqlalchemy.orm import Session
 
 from app.core.schemas.user import UserCreate, UserUpdate, UserRead
-router = APIRouter(prefix="/api/user", tags=["Группа, USERS access 2 variant"]) # с тегами будет разделение, лучше
+router = APIRouter(prefix="/api/user", tags=["Группа, USERS access 22"]) # с тегами будет разделение, лучше
 
+@router.get("/", response_model=list[UserRead])
+def get_all(session: Annotated[Session, Depends(get_session)]):
+    query = select(User)
+    result = session.execute(query)
+    session.commit()
+
+    return result.scalars().all()
 
 @router.get("/{id}", response_model=UserRead) # для получение
-def get_by_id(id: int, session: Annotated[Session, Depends(get_session)]):
+def get_one_by_id(id: int, session: Annotated[Session, Depends(get_session)]):
     query = (select(User)
              .filter_by(id=id)) # filter_by(id=6)
     result = session.execute(query)
     session.commit()
 
-    return result.scalar_one_or_none()
-
-@router.patch("/{id}", response_model=UserRead)# для обновление
-def alter(id:int,data: UserUpdate,session: Annotated[Session, Depends(get_session)]):
-    data_dict: dict = data.model_dump()
-    query = (update(User)
-             .filter_by(id=id)
-             .values(**data_dict)
-             .returning(User))
-    result = session.execute(query)
-    session.commit()
     return result.scalar_one_or_none()
 
 @router.post("/", response_model=UserRead)   # для создание
@@ -43,6 +39,32 @@ def create(data: UserCreate, session: Annotated[Session, Depends(get_session)]):
     result = session.execute(query)  # Исправлено Исполняет SQL-запрос.
     session.commit()
     return result.scalar_one_or_none()
+
+@router.patch("/{id}", response_model=UserRead)# для обновление
+def alter(
+        id:int,
+        data: UserUpdate,
+        session: Annotated[Session, Depends(get_session)]
+):
+    data_dict: dict = data.model_dump(exclude_unset=True, exclude_none=True)
+    query = update(User).filter_by(id=id).values(**data_dict).returning(User)
+
+    result = session.execute(query)
+    session.commit()
+    return result.scalar_one_or_none()
+
+
+@router.delete("/{id}")
+def remove(
+    id: int,
+    session: Annotated[Session, Depends(get_session)],
+):
+    query = delete(User).filter_by(id = id)
+
+    session.execute(query)
+    session.commit()
+    return f"User: {id} is has been removed!"
+
 
 # def get(model, **kwargs):
 #     with SessionLocal() as session:
